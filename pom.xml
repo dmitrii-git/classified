@@ -61,6 +61,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.6.3</version>
 				<configuration>
 					<excludes>
 						<exclude>
@@ -68,6 +69,14 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>6.0.1</version>
+				<configuration>
+					<configFiles>src/main/resources/flyway.conf</configFiles>
 				</configuration>
 			</plugin>
 		</plugins>
