@@ -5,9 +5,10 @@ import com.mcompany.classified.services.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
@@ -15,20 +16,25 @@ import java.util.Optional;
 public class ProductController {
     private ProductService productService;
 
+
     @GetMapping
-    public String showAllProducts(Model model, @RequestParam(defaultValue = "1", name = "p") Integer page) {
-        if (page < 1) {
-            page = 1;
-        }
-        model.addAttribute("products", productService.findAll(page - 1, 5));
+    public String showAllProducts(Model model) {
+        List<Product> products = productService.findAll();
+        model.addAttribute("products", products);
         return "products";
     }
 
-    @GetMapping("/{id}")
-    @ResponseBody
-    public Optional<Product> getOneProductById(@PathVariable Long id) {
-        return productService.findById(id);
-                //.orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " doesn't exists"));
+    @GetMapping("/ascending")
+    public String showAllProductsAscending(Model model) {
+        List<Product> products = productService.findAllAscending();
+        model.addAttribute("products", products);
+        return "products";
     }
+
+
+
+
+
+
 }
 
